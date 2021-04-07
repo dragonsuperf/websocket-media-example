@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import axios from 'axios';
 import './App.css';
 
+function VideoSection() {
+  return (
+    <video autoPlay src="./hunchgray.mp4#t=15" />
+  );
+}
+
 function App() {
+  const [enter, setEnter] = useState(false);
+
+  const search = async () => {
+    try {
+      const response = await axios.get('https://www.googleapis.com/youtube/v3/search?type=video&part=snippet&key=AIzaSyBCkatHNqut1afZOtYRgCs-lWUNheWJRls&q=hunchgray');
+      console.log(response);
+    } catch(error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {enter && <VideoSection />}
+      <button onClick={() => {
+        search();
+        setEnter(!enter);
+      }}>Video</button>
     </div>
   );
 }
