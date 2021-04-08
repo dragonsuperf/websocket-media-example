@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './App.css';
+import YouTube, { Options } from 'react-youtube';
+import Chat from './components/Chat';
 
 interface YoutubeChannelData {
   etag: string;
@@ -23,14 +24,26 @@ interface YoutubeChannelData {
   };
 }
 
-function VideoSection() {
-  return <video autoPlay src="./hunchgray.mp4#t=15" />;
-}
-
 function App() {
   const [result, setResult] = useState<YoutubeChannelData[]>([]);
-  const [enter, setEnter] = useState(false);
+  const [video, setVideo] = useState('');
   const [query, setQuery] = useState('');
+  const [player, setPlayer] = useState<any>(null);
+  const options: Options = {
+    playerVars: {
+      autoplay: 1,
+      disablekb: 1,
+      controls: 0,
+    },
+  };
+
+  const onReady = (event: any) => {
+    setPlayer(event.target);
+  };
+
+  const changeTime = (second: number) => {
+    player?.seekTo(second);
+  };
 
   const search = async () => {
     try {
@@ -46,14 +59,19 @@ function App() {
 
   return (
     <div className="App">
-      {enter && <VideoSection />}
+      {video !== '' && (
+        <YouTube onReady={onReady} opts={options} videoId={video} />
+      )}
       {result.length > 0 &&
         result.map((item: YoutubeChannelData) => {
           return (
-            <>
+            <div
+              key={item.id.videoId}
+              onClick={() => setVideo(item.id.videoId)}
+            >
               <img src={item.snippet.thumbnails.default.url} alt="thumbnail" />
               <p>{item.snippet.title}</p>
-            </>
+            </div>
           );
         })}
       <input value={query} onChange={(e) => setQuery(e.target.value)} />
@@ -66,11 +84,19 @@ function App() {
       </button>
       <button
         onClick={() => {
-          search();
-          setEnter(!enter);
+          changeTime(50);
         }}
       >
-        Video
+        changeTest!
+      </button>
+      <Chat />
+      <input value={query} onChange={(e) => setQuery(e.target.value)} />
+      <button
+        onClick={() => {
+          search();
+        }}
+      >
+        채팅
       </button>
     </div>
   );
