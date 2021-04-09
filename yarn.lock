@@ -11746,6 +11746,11 @@ react-textarea-autosize@^8.3.0:
     use-composed-ref "^1.0.0"
     use-latest "^1.0.0"
 
+react-use-websocket@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/react-use-websocket/-/react-use-websocket-2.5.0.tgz#20c6657802369a280c4921840a0529c2fd0cfe6f"
+  integrity sha512-xC2xE13RI584dyRtuQaTRf9tyJsdL4wD2fqq8ugZAcm3Xf+qjyvTJiB2BMsWfBOjQgnjOJstp2sOPXFB84Sb+Q==
+
 react-youtube@^7.13.1:
   version "7.13.1"
   resolved "https://registry.yarnpkg.com/react-youtube/-/react-youtube-7.13.1.tgz#3b327599a687bf22e071468818522920b36bcb57"

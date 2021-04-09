@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import axios from 'axios';
 import YouTube, { Options } from 'react-youtube';
 import Chat from './components/Chat';
@@ -24,7 +24,7 @@ interface YoutubeChannelData {
   };
 }
 
-function App() {
+function App(): ReactElement {
   const [result, setResult] = useState<YoutubeChannelData[]>([]);
   const [video, setVideo] = useState('');
   const [query, setQuery] = useState('');
@@ -90,14 +90,6 @@ function App() {
         changeTest!
       </button>
       <Chat />
-      <input value={query} onChange={(e) => setQuery(e.target.value)} />
-      <button
-        onClick={() => {
-          search();
-        }}
-      >
-        채팅
-      </button>
     </div>
   );
 }
